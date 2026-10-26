@@ -1,0 +1,15 @@
+{
+  "default_branch": "main",
+  "branches": [
+    "main",
+    "rupesh_indust"
+  ],
+  "parent": {
+    "main": null,
+    "rupesh_indust": "main"
+  },
+  "order": [
+    "main",
+    "rupesh_indust"
+  ]
+}
