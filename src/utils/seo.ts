@@ -38,7 +38,7 @@ export const pageSEOMap: Record<string, SEOConfig> = {
   team: {
     title: 'Our Team | Innovix Industries',
     description:
-      'Meet the team driving Innovix Industries forward: CA Amar Prasad, CA Dheeraj kr Singh, Amandeep Singh, Amar Verma, Mohit Mishra, Vikram Thakur, and Irshad Ali.',
+      'Meet the team driving Innovix Industries forward: CA Amar Prasad, CA Dheeraj kr Singh, Amandeep Singh, Amar Verma, Mohit Mishra, Vikram Thakur, Irshad Ali, Abhishek Singh, and Sufiyan Mallik.',
     canonical: 'https://innovixindustries.com/team',
   },
   careers: {

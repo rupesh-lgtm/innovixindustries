@@ -18,6 +18,8 @@ const members: Member[] = [
   { id: 5, name: "Amar Verma" },
   { id: 6, name: "Vikram Thakur" },
   { id: 7, name: "Irshad Ali" },
+  { id: 8, name: "Abhishek Singh" },
+  { id: 9, name: "Sufiyan Mallik" },
 ];
 
 export const TeamPage: React.FC = () => {
@@ -98,7 +100,7 @@ export const TeamPage: React.FC = () => {
 
               {/* Subtle Executive Index */}
               <span className="text-[10px] font-extrabold uppercase tracking-widest text-gray-400 dark:text-gray-500 mb-2">
-                Core Member · 0{member.id}
+                Core Member · {String(member.id).padStart(2, '0')}
               </span>
 
               {/* Member Name */}
