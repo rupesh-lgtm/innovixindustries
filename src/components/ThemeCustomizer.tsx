@@ -191,9 +191,9 @@ export const ThemeCustomizer: React.FC<ThemeCustomizerProps> = ({ isOpen, onClos
                         <div>
                           <div className="text-xs sm:text-sm font-bold text-gray-900 dark:text-white flex items-center gap-1.5">
                             <span>{palette.name}</span>
-                            {palette.id === 'crimson' && (
-                              <span className="text-[9px] uppercase tracking-wider font-extrabold px-1.5 py-0.5 rounded-md bg-rose-100 dark:bg-rose-950/60 text-rose-600 dark:text-rose-400">
-                                Default
+                            {palette.id === 'cyan' && (
+                              <span className="text-[9px] uppercase tracking-wider font-extrabold px-1.5 py-0.5 rounded-md bg-sky-100 dark:bg-sky-950/60 text-sky-600 dark:text-sky-400">
+                                Official Default
                               </span>
                             )}
                           </div>

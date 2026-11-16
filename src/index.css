@@ -3,23 +3,34 @@
 @tailwind utilities;
 
 :root {
-  --theme-primary: #b65862;
-  --theme-primary-hover: #a24851;
-  --theme-primary-light: #fff1f2;
-  --theme-primary-text: #b65862;
-  --theme-primary-glow: rgba(182, 88, 98, 0.35);
-  --theme-gradient-from: #b65862;
-  --theme-gradient-to: #c76570;
+  --theme-primary: #0284c7;
+  --theme-primary-hover: #0369a1;
+  --theme-primary-light: #f0f9ff;
+  --theme-primary-text: #0284c7;
+  --theme-primary-glow: rgba(2, 132, 199, 0.35);
+  --theme-gradient-from: #072d4b;
+  --theme-gradient-to: #0284c7;
+}
+
+[data-color-theme="cyan"],
+[data-color-theme="innovix"] {
+  --theme-primary: #0284c7;
+  --theme-primary-hover: #0369a1;
+  --theme-primary-light: #f0f9ff;
+  --theme-primary-text: #0284c7;
+  --theme-primary-glow: rgba(2, 132, 199, 0.35);
+  --theme-gradient-from: #072d4b;
+  --theme-gradient-to: #0284c7;
 }
 
 [data-color-theme="crimson"] {
-  --theme-primary: #b65862;
-  --theme-primary-hover: #a24851;
-  --theme-primary-light: #fff1f2;
-  --theme-primary-text: #b65862;
-  --theme-primary-glow: rgba(182, 88, 98, 0.35);
-  --theme-gradient-from: #b65862;
-  --theme-gradient-to: #c76570;
+  --theme-primary: #0284c7;
+  --theme-primary-hover: #0369a1;
+  --theme-primary-light: #f0f9ff;
+  --theme-primary-text: #0284c7;
+  --theme-primary-glow: rgba(2, 132, 199, 0.35);
+  --theme-gradient-from: #072d4b;
+  --theme-gradient-to: #0284c7;
 }
 
 [data-color-theme="copper"] {
