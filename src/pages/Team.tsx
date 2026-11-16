@@ -1,14 +1,9 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { 
-  Factory, 
-  Globe2, 
-  CheckCircle2,
-  Sparkles
-} from 'lucide-react';
-import { StatsBanner } from '../components/StatsBanner';
-import { FloatingActions } from '../components/FloatingActions';
-import { PartnerWithUs } from '../components/PartnerWithUs';
+import React from "react";
+import { motion } from "framer-motion";
+import { Factory, Globe2, CheckCircle2, Sparkles } from "lucide-react";
+import { StatsBanner } from "../components/StatsBanner";
+import { FloatingActions } from "../components/FloatingActions";
+import { PartnerWithUs } from "../components/PartnerWithUs";
 
 interface Member {
   id: number;
@@ -16,13 +11,13 @@ interface Member {
 }
 
 const members: Member[] = [
-  { id: 1, name: 'CA Amar Prasad' },
-  { id: 2, name: 'CA Dheeraj kr Singh' },
-  { id: 3, name: 'Amandeep Singh' },
-  { id: 4, name: 'Amar Verma' },
-  { id: 5, name: 'Mohit Mishra' },
-  { id: 6, name: 'Vikram Thakur' },
-  { id: 7, name: 'Irshad Ali' },
+  { id: 1, name: "CA Amar Prasad" },
+  { id: 2, name: "CA Dheeraj kr Singh" },
+  { id: 3, name: "Mohit Mishra" },
+  { id: 4, name: "Amandeep Singh" },
+  { id: 5, name: "Amar Verma" },
+  { id: 6, name: "Vikram Thakur" },
+  { id: 7, name: "Irshad Ali" },
 ];
 
 export const TeamPage: React.FC = () => {
@@ -44,14 +39,18 @@ export const TeamPage: React.FC = () => {
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
             className="max-w-2xl"
           >
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[var(--theme-primary)]/20 text-[var(--theme-primary-light)] text-xs font-semibold uppercase tracking-wider mb-3 backdrop-blur-md border border-[var(--theme-primary)]/30 shadow-sm" style={{ color: 'var(--theme-primary)' }}>
+            <div
+              className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[var(--theme-primary)]/20 text-[var(--theme-primary-light)] text-xs font-semibold uppercase tracking-wider mb-3 backdrop-blur-md border border-[var(--theme-primary)]/30 shadow-sm"
+              style={{ color: "var(--theme-primary)" }}
+            >
               <Sparkles className="w-3.5 h-3.5" /> Innovix Leadership
             </div>
             <h1 className="text-3xl sm:text-5xl font-black tracking-tight leading-tight mb-3">
               Our Team
             </h1>
             <p className="text-gray-200 dark:text-gray-300 text-sm sm:text-base leading-relaxed max-w-xl">
-              Distinguished professionals guiding Innovix Industries toward sustainable circular growth and operational excellence.
+              Distinguished professionals guiding Innovix Industries toward
+              sustainable circular growth and operational excellence.
             </p>
           </motion.div>
         </div>
@@ -71,7 +70,8 @@ export const TeamPage: React.FC = () => {
           </h2>
           <div className="w-16 h-1 bg-[var(--theme-primary)] mx-auto mt-3 rounded-full" />
           <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-3 max-w-md mx-auto">
-            Steering circular metallurgy with integrity and global trade capability.
+            Steering circular metallurgy with integrity and global trade
+            capability.
           </p>
         </div>
 
@@ -82,7 +82,7 @@ export const TeamPage: React.FC = () => {
               key={member.id}
               initial={{ opacity: 0, y: 25 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-30px' }}
+              viewport={{ once: true, margin: "-30px" }}
               transition={{ duration: 0.45, delay: idx * 0.05 }}
               whileHover={{
                 y: -6,
@@ -124,9 +124,12 @@ export const TeamPage: React.FC = () => {
               className="p-8 bg-white dark:bg-[#091724] rounded-3xl shadow-lg dark:shadow-2xl border border-slate-200/80 dark:border-slate-800 card-3d"
             >
               <Factory className="w-10 h-10 text-[var(--theme-primary)] mb-4" />
-              <h4 className="text-lg font-bold text-gray-900 dark:text-white mb-2">Hands-On Metallurgy</h4>
+              <h4 className="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                Hands-On Metallurgy
+              </h4>
               <p className="text-gray-600 dark:text-gray-400 text-xs sm:text-sm leading-relaxed">
-                Direct oversight on sorting purity, density baling standards, and furnace feedstock preparation.
+                Direct oversight on sorting purity, density baling standards,
+                and furnace feedstock preparation.
               </p>
             </motion.div>
 
@@ -135,9 +138,12 @@ export const TeamPage: React.FC = () => {
               className="p-8 bg-white dark:bg-[#091724] rounded-3xl shadow-lg dark:shadow-2xl border border-slate-200/80 dark:border-slate-800 card-3d"
             >
               <Globe2 className="w-10 h-10 text-[#072d4b] dark:text-blue-400 mb-4" />
-              <h4 className="text-lg font-bold text-gray-900 dark:text-white mb-2">Cross-Border Logistics</h4>
+              <h4 className="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                Cross-Border Logistics
+              </h4>
               <p className="text-gray-600 dark:text-gray-400 text-xs sm:text-sm leading-relaxed">
-                Comprehensive coordination of trade documentation, customs clearance, and global maritime port handling.
+                Comprehensive coordination of trade documentation, customs
+                clearance, and global maritime port handling.
               </p>
             </motion.div>
 
@@ -146,9 +152,12 @@ export const TeamPage: React.FC = () => {
               className="p-8 bg-white dark:bg-[#091724] rounded-3xl shadow-lg dark:shadow-2xl border border-slate-200/80 dark:border-slate-800 card-3d"
             >
               <CheckCircle2 className="w-10 h-10 text-emerald-600 dark:text-emerald-400 mb-4" />
-              <h4 className="text-lg font-bold text-gray-900 dark:text-white mb-2">Integrity & Transparency</h4>
+              <h4 className="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                Integrity & Transparency
+              </h4>
               <p className="text-gray-600 dark:text-gray-400 text-xs sm:text-sm leading-relaxed">
-                Direct material inspection provided with every single shipment. Ensuring verified weight and physical grade in every container.
+                Direct material inspection provided with every single shipment.
+                Ensuring verified weight and physical grade in every container.
               </p>
             </motion.div>
           </div>

@@ -1,154 +1,70 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { 
-  MapPin, 
-  Clock, 
-  ArrowRight, 
   CheckCircle2, 
   Sparkles, 
   Send, 
   TrendingUp, 
   Globe2, 
   ShieldCheck, 
-  HeartHandshake
+  HeartHandshake,
+  HelpCircle,
+  Briefcase,
+  Mail,
+  Phone,
+  MapPin
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { StatsBanner } from '../components/StatsBanner';
 import { FloatingActions } from '../components/FloatingActions';
 
-interface JobPosition {
-  id: string;
-  title: string;
-  department: string;
-  location: string;
-  type: string;
-  experience: string;
-  description: string;
-  highlights: string[];
-}
-
-const jobPositions: JobPosition[] = [
-  {
-    id: 'scrap-trader',
-    title: 'International Scrap Trader / Procurement Specialist',
-    department: 'Trading & Procurement',
-    location: 'Noida HQ (Hybrid / Port Travel)',
-    type: 'Full-time',
-    experience: '3 - 6 Years',
-    description: 'Lead commercial negotiations, supplier acquisition, and international maritime container procurement for ferrous (HMS 1&2) and non-ferrous scrap (Millberry copper, aluminium purja).',
-    highlights: [
-      'Manage overseas scrap yards and indenting agents across UAE, Europe, and SEA',
-      'Oversee container LC terms, assay verifications, and import clearance logistics',
-      'Dynamic performance incentive structure tied to trading volumes',
-    ],
-  },
-  {
-    id: 'metallurgy-inspector',
-    title: 'Secondary Metallurgy Quality Inspector',
-    department: 'Operations & Yard Quality',
-    location: 'Noida / Regional Processing Yards',
-    type: 'Full-time',
-    experience: '2 - 5 Years',
-    description: 'Ensure rigid adherence to ISRI grading, spectroscopic analysis, density baling standards, and radiation clearance for inbound and outbound metal consignments.',
-    highlights: [
-      'Direct hands-on handheld XRF analyzer spectroscopic assays',
-      'Oversee physical shredding, sorting purity, and zero-contamination protocols',
-      'Issue internal container inspection passes prior to foundry dispatch',
-    ],
-  },
-  {
-    id: 'logistics-manager',
-    title: 'Maritime Logistics & Customs Clearance Lead',
-    department: 'Supply Chain & Shipping',
-    location: 'Noida Corporate Office',
-    type: 'Full-time',
-    experience: '4 - 8 Years',
-    description: 'Coordinate multimodal container clearances through major Indian ports (Mundra, JNPT, Chennai) and facilitate smooth customs documentation, BL handling, and inland transport.',
-    highlights: [
-      'Liaise with shipping lines (Maersk, MSC, CMA CGM) and customs house agents',
-      'Optimize transit turnaround, detention fee avoidance, and container tracking',
-      'Oversee statutory import documentation and DGFT compliance norms',
-    ],
-  },
-  {
-    id: 'business-dev-executive',
-    title: 'Industrial Foundry & Smelter Account Executive',
-    department: 'Sales & Business Development',
-    location: 'Noida / Delhi NCR (Client Visits)',
-    type: 'Full-time',
-    experience: '2 - 5 Years',
-    description: 'Drive strategic secondary metal feedstock contracts with prominent induction furnaces, brass foundries, and aluminium die-casting manufacturers across North India.',
-    highlights: [
-      'Expand recurring monthly supply contracts for verified grade scrap',
-      'Provide clients with dynamic spot prices and container dispatch schedules',
-      'Collaborate directly with senior leadership on strategic pricing models',
-    ],
-  },
-  {
-    id: 'finance-taxation-lead',
-    title: 'Corporate Accounts & GST Compliance Executive',
-    department: 'Finance & Accounts',
-    location: 'Noida Corporate Office',
-    type: 'Full-time',
-    experience: '3 - 6 Years',
-    description: 'Manage specialized scrap transaction accounting, RCM (Reverse Charge Mechanism), e-way bill reconciliation, customs duty drawbacks, and statutory audit compliance.',
-    highlights: [
-      'Handle comprehensive high-volume industrial trade ledger audits',
-      'Ensure 100% statutory compliance with central and state taxation authorities',
-      'Work alongside senior Chartered Accountants on financial planning',
-    ],
-  },
-];
-
 const culturePerks = [
   {
     icon: TrendingUp,
     title: 'High-Growth Trajectory',
-    desc: 'Be part of India’s booming circular economy and secondary metals transition with fast-track merit-based career promotions.',
+    desc: 'Be part of India’s rapidly growing circular economy and secondary metal processing with fast-track merit-based advancement.',
   },
   {
     icon: Globe2,
     title: 'Global Trade Exposure',
-    desc: 'Gain direct hands-on experience in cross-border trade, international maritime shipping, and multinational scrap brokerage.',
+    desc: 'Gain direct hands-on experience in cross-border commodity trade, maritime shipping, and international secondary scrap brokerage.',
   },
   {
     icon: ShieldCheck,
     title: 'Integrity First Culture',
-    desc: 'Work in an environment anchored in transparent grading, precise assays, and honest supplier relationships.',
+    desc: 'Work in an environment anchored in physical inspection standards, spectroscopic assays, and ethical long-term client relationships.',
   },
   {
     icon: HeartHandshake,
-    title: 'Competitive Compensation',
-    desc: 'Market-leading base salaries, attractive volume-based incentive bonuses, and comprehensive family health coverage.',
+    title: 'Competitive Rewards',
+    desc: 'Attractive compensation packages, performance-linked trading incentives, and collaborative leadership guidance.',
   },
 ];
 
+const functionalAreas = [
+  'Scrap Trading & Commodity Sourcing',
+  'Secondary Metallurgy & Quality Inspection',
+  'Maritime Shipping & Customs Logistics',
+  'Processing Yard & Plant Operations',
+  'Accounts, GST & Financial Compliance',
+  'Industrial Foundry & Smelter Sales',
+  'Engineering & Machine Maintenance',
+  'General Career Inquiry / Other',
+];
+
 export const CareersPage: React.FC = () => {
-  const [selectedDept, setSelectedDept] = useState<string>('All');
   const [submitted, setSubmitted] = useState<boolean>(false);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     phone: '',
-    role: '',
+    areaOfInterest: '',
     experience: '',
+    location: '',
     linkedin: '',
+    inquiryType: 'apply', // 'apply' | 'ask'
     message: '',
   });
-
-  const departments = ['All', 'Trading & Procurement', 'Operations & Yard Quality', 'Supply Chain & Shipping', 'Sales & Business Development', 'Finance & Accounts'];
-
-  const filteredJobs = selectedDept === 'All' 
-    ? jobPositions 
-    : jobPositions.filter(j => j.department === selectedDept);
-
-  const handleApplyClick = (roleTitle: string) => {
-    setFormData(prev => ({ ...prev, role: roleTitle }));
-    const formEl = document.getElementById('application-form');
-    if (formEl) {
-      formEl.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -160,28 +76,33 @@ export const CareersPage: React.FC = () => {
       colors: ['#0284c7', '#072d4b', '#10b981', '#f59e0b'],
     });
 
-    const subject = encodeURIComponent(`Candidate Job Application: ${formData.role || 'Career Opportunity'} - ${formData.name}`);
+    const isQuestion = formData.inquiryType === 'ask';
+    const subjectPrefix = isQuestion ? 'Career Inquiry & Question' : 'Job Application';
+    const subject = encodeURIComponent(`${subjectPrefix}: ${formData.areaOfInterest || 'General'} - ${formData.name}`);
+    
     const emailBody = [
-      `CANDIDATE JOB APPLICATION`,
-      `=========================`,
-      `Candidate Name  : ${formData.name}`,
-      `Email Address   : ${formData.email}`,
-      `Phone Number    : ${formData.phone}`,
-      `Target Position : ${formData.role}`,
-      `Experience      : ${formData.experience || 'Not specified'}`,
-      `LinkedIn/Profile: ${formData.linkedin || 'Not provided'}`,
+      isQuestion ? `CANDIDATE CAREER INQUIRY / QUESTION` : `CANDIDATE JOB APPLICATION`,
+      `=================================`,
+      `Full Name          : ${formData.name}`,
+      `Email Address      : ${formData.email}`,
+      `Phone Number       : ${formData.phone}`,
+      `Inquiry Type       : ${isQuestion ? 'Asking Question / General Career Guidance' : 'Direct Job Application'}`,
+      `Area of Expertise  : ${formData.areaOfInterest || 'Not specified'}`,
+      `Experience Level   : ${formData.experience || 'Not specified'}`,
+      `Current Location   : ${formData.location || 'Not specified'}`,
+      `LinkedIn/Profile   : ${formData.linkedin || 'Not provided'}`,
       ``,
-      `Cover Note & Key Strengths:`,
+      isQuestion ? `Question / Message:` : `Cover Note & Application Message:`,
       `${formData.message || 'None provided'}`,
       ``,
-      `=========================`,
+      `=================================`,
       `Submitted via Innovix Industries Official Careers Portal`,
       `Timestamp: ${new Date().toLocaleString()}`,
     ].join('\n');
 
     const mailtoUrl = `mailto:megha.chopra@innovixtechnology.com?subject=${subject}&body=${encodeURIComponent(emailBody)}`;
     
-    // Open candidate's email client with pre-filled submission to megha.chopra@innovixtechnology.com
+    // Trigger pre-filled email to megha.chopra@innovixtechnology.com
     const link = document.createElement('a');
     link.href = mailtoUrl;
     link.target = '_blank';
@@ -196,9 +117,11 @@ export const CareersPage: React.FC = () => {
         name: '',
         email: '',
         phone: '',
-        role: '',
+        areaOfInterest: '',
         experience: '',
+        location: '',
         linkedin: '',
+        inquiryType: 'apply',
         message: '',
       });
     }, 6000);
@@ -227,13 +150,13 @@ export const CareersPage: React.FC = () => {
               className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[var(--theme-primary)]/20 text-xs font-semibold uppercase tracking-wider mb-3 backdrop-blur-md border border-[var(--theme-primary)]/30 shadow-sm"
               style={{ color: 'var(--theme-primary)' }}
             >
-              <Sparkles className="w-3.5 h-3.5" /> Work With Us · Careers
+              <Sparkles className="w-3.5 h-3.5" /> Career & Talent Portal
             </div>
             <h1 className="text-3xl sm:text-5xl font-black tracking-tight leading-tight mb-3">
-              Shape the Future of Sustainable Metallurgy
+              Build Your Career with Innovix Industries
             </h1>
             <p className="text-gray-200 dark:text-gray-300 text-sm sm:text-base leading-relaxed max-w-xl">
-              Join Innovix Industries in pioneering transparent, high-purity metal recycling and global trade solutions.
+              We welcome skilled professionals, energetic graduates, and industry specialists to explore opportunities and shape the circular metallurgy sector with us.
             </p>
           </motion.div>
         </div>
@@ -242,14 +165,14 @@ export const CareersPage: React.FC = () => {
       {/* 2. Stats Strip */}
       <StatsBanner />
 
-      {/* 3. Culture & Perks Section */}
+      {/* 3. Culture & Pillars */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
         <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-16">
           <span className="text-xs font-bold uppercase tracking-widest text-[var(--theme-primary)]">
             Life At Innovix
           </span>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-[#072d4b] dark:text-white tracking-tight mt-1">
-            Why Build Your Career Here
+            Why Grow With Us
           </h2>
           <div className="w-16 h-1 bg-[var(--theme-primary)] mx-auto mt-3 rounded-full" />
         </div>
@@ -284,253 +207,266 @@ export const CareersPage: React.FC = () => {
         </div>
       </section>
 
-      {/* 4. Open Positions Directory */}
-      <section id="openings" className="w-full bg-[#f8fafc] dark:bg-[#050e17] py-16 sm:py-24 border-y border-slate-200 dark:border-slate-800 transition-colors duration-300">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* 4. Applicant Ask & Apply Portal Section */}
+      <section id="apply-section" className="w-full bg-[#f8fafc] dark:bg-[#050e17] py-16 sm:py-24 border-y border-slate-200 dark:border-slate-800 transition-colors duration-300">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6">
-            <div>
+          <div className="bg-white dark:bg-[#091724] rounded-3xl p-7 sm:p-10 md:p-12 shadow-2xl border border-slate-200/90 dark:border-slate-800 card-3d relative overflow-hidden">
+            
+            {/* Header */}
+            <div className="text-center max-w-xl mx-auto mb-8 sm:mb-10">
               <span className="text-xs font-bold uppercase tracking-widest text-[var(--theme-primary)]">
-                Current Vacancies
+                Direct Candidate Desk
               </span>
-              <h2 className="text-3xl sm:text-4xl font-extrabold text-[#072d4b] dark:text-white tracking-tight mt-1">
-                Explore Open Positions
+              <h2 className="text-2xl sm:text-4xl font-extrabold text-[#072d4b] dark:text-white mt-1">
+                Apply For a Job or Inquire
               </h2>
-              <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-2 max-w-xl">
-                We are continually looking for ambitious professionals across scrap trading, logistics, metallurgy, and corporate operations.
+              <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-2">
+                Whether you wish to apply for an active career opportunity or ask questions about roles at Innovix, please fill out your details below.
               </p>
-            </div>
 
-            {/* Department Filter Pills */}
-            <div className="flex flex-wrap gap-2">
-              {departments.map((dept) => (
+              {/* Inquiry Type Toggle Pills */}
+              <div className="inline-flex p-1 rounded-2xl bg-slate-100 dark:bg-slate-800 mt-5 border border-slate-200 dark:border-slate-700">
                 <button
-                  key={dept}
-                  onClick={() => setSelectedDept(dept)}
-                  className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer ${
-                    selectedDept === dept
+                  type="button"
+                  onClick={() => setFormData({ ...formData, inquiryType: 'apply' })}
+                  className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
+                    formData.inquiryType === 'apply'
                       ? 'bg-[var(--theme-primary)] text-white shadow-md'
-                      : 'bg-white dark:bg-[#0a1826] text-gray-700 dark:text-gray-300 border border-slate-200 dark:border-slate-800 hover:border-[var(--theme-primary)]/50'
+                      : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white'
                   }`}
                 >
-                  {dept}
+                  <Briefcase className="w-4 h-4" />
+                  <span>Apply for a Job</span>
                 </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Job Cards Stack */}
-          <div className="space-y-5">
-            <AnimatePresence mode="popLayout">
-              {filteredJobs.map((job, idx) => (
-                <motion.div
-                  key={job.id}
-                  layout
-                  initial={{ opacity: 0, y: 15 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, scale: 0.98 }}
-                  transition={{ duration: 0.35, delay: idx * 0.04 }}
-                  whileHover={{ y: -3 }}
-                  className="p-6 sm:p-8 rounded-3xl bg-white dark:bg-[#091724] border border-slate-200/90 dark:border-slate-800 shadow-md hover:shadow-xl transition-all duration-300 flex flex-col lg:flex-row lg:items-center justify-between gap-6 card-3d"
+                <button
+                  type="button"
+                  onClick={() => setFormData({ ...formData, inquiryType: 'ask' })}
+                  className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
+                    formData.inquiryType === 'ask'
+                      ? 'bg-[var(--theme-primary)] text-white shadow-md'
+                      : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white'
+                  }`}
                 >
-                  <div className="space-y-3 max-w-3xl">
-                    <div className="flex flex-wrap items-center gap-2.5">
-                      <span className="px-3 py-1 rounded-full bg-[var(--theme-primary)]/10 text-[var(--theme-primary)] text-[11px] font-extrabold uppercase tracking-wider">
-                        {job.department}
-                      </span>
-                      <span className="flex items-center gap-1 text-xs text-gray-500 dark:text-gray-400">
-                        <MapPin className="w-3.5 h-3.5" /> {job.location}
-                      </span>
-                      <span className="flex items-center gap-1 text-xs text-gray-500 dark:text-gray-400">
-                        <Clock className="w-3.5 h-3.5" /> {job.type}
-                      </span>
-                      <span className="text-xs font-semibold text-emerald-600 dark:text-emerald-400">
-                        • Exp: {job.experience}
-                      </span>
-                    </div>
+                  <HelpCircle className="w-4 h-4" />
+                  <span>Ask a Question</span>
+                </button>
+              </div>
+            </div>
 
-                    <h3 className="text-xl sm:text-2xl font-black text-gray-900 dark:text-white tracking-tight">
-                      {job.title}
-                    </h3>
+            {submitted && (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="mb-6 p-4 bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800 rounded-2xl flex items-center gap-3 text-emerald-800 dark:text-emerald-200 text-sm font-medium"
+              >
+                <CheckCircle2 className="w-5 h-5 text-emerald-600 dark:text-emerald-400 shrink-0" />
+                <span>
+                  Thank you! Your details have been submitted and routed to <strong>megha.chopra@innovixtechnology.com</strong>. Our HR & recruitment team will connect with you shortly.
+                </span>
+              </motion.div>
+            )}
 
-                    <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
-                      {job.description}
-                    </p>
+            <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-xs font-bold uppercase tracking-wider text-gray-700 dark:text-gray-300 mb-1.5">
+                    Full Name *
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    placeholder="e.g. Rahul Sharma"
+                    value={formData.name}
+                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                    className="w-full px-4 py-3 rounded-2xl bg-slate-50 dark:bg-[#07131e] border border-slate-200 dark:border-slate-700 text-gray-900 dark:text-white text-xs sm:text-sm focus:outline-none focus:border-[var(--theme-primary)] transition-colors"
+                  />
+                </div>
 
-                    <div className="pt-2 grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-gray-500 dark:text-gray-400">
-                      {job.highlights.map((item, hIdx) => (
-                        <div key={hIdx} className="flex items-start gap-2">
-                          <CheckCircle2 className="w-3.5 h-3.5 text-[var(--theme-primary)] shrink-0 mt-0.5" />
-                          <span>{item}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
+                <div>
+                  <label className="block text-xs font-bold uppercase tracking-wider text-gray-700 dark:text-gray-300 mb-1.5">
+                    Email Address *
+                  </label>
+                  <input
+                    type="email"
+                    required
+                    placeholder="rahul@example.com"
+                    value={formData.email}
+                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    className="w-full px-4 py-3 rounded-2xl bg-slate-50 dark:bg-[#07131e] border border-slate-200 dark:border-slate-700 text-gray-900 dark:text-white text-xs sm:text-sm focus:outline-none focus:border-[var(--theme-primary)] transition-colors"
+                  />
+                </div>
+              </div>
 
-                  <div className="shrink-0 pt-2 lg:pt-0">
-                    <button
-                      onClick={() => handleApplyClick(job.title)}
-                      className="w-full lg:w-auto px-6 py-3 rounded-2xl bg-[var(--theme-primary)] text-white hover:opacity-95 font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-md hover:shadow-lg transition-all cursor-pointer group"
-                    >
-                      <span>Apply For Position</span>
-                      <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                    </button>
-                  </div>
-                </motion.div>
-              ))}
-            </AnimatePresence>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-xs font-bold uppercase tracking-wider text-gray-700 dark:text-gray-300 mb-1.5">
+                    Phone Number *
+                  </label>
+                  <input
+                    type="tel"
+                    required
+                    placeholder="+91 98765 43210"
+                    value={formData.phone}
+                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                    className="w-full px-4 py-3 rounded-2xl bg-slate-50 dark:bg-[#07131e] border border-slate-200 dark:border-slate-700 text-gray-900 dark:text-white text-xs sm:text-sm focus:outline-none focus:border-[var(--theme-primary)] transition-colors"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold uppercase tracking-wider text-gray-700 dark:text-gray-300 mb-1.5">
+                    Area of Interest / Function *
+                  </label>
+                  <select
+                    required
+                    value={formData.areaOfInterest}
+                    onChange={(e) => setFormData({ ...formData, areaOfInterest: e.target.value })}
+                    className="w-full px-4 py-3 rounded-2xl bg-slate-50 dark:bg-[#07131e] border border-slate-200 dark:border-slate-700 text-gray-900 dark:text-white text-xs sm:text-sm focus:outline-none focus:border-[var(--theme-primary)] transition-colors cursor-pointer"
+                  >
+                    <option value="">Select a domain...</option>
+                    {functionalAreas.map((area, idx) => (
+                      <option key={idx} value={area}>
+                        {area}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div>
+                  <label className="block text-xs font-bold uppercase tracking-wider text-gray-700 dark:text-gray-300 mb-1.5">
+                    Experience Level
+                  </label>
+                  <select
+                    value={formData.experience}
+                    onChange={(e) => setFormData({ ...formData, experience: e.target.value })}
+                    className="w-full px-4 py-3 rounded-2xl bg-slate-50 dark:bg-[#07131e] border border-slate-200 dark:border-slate-700 text-gray-900 dark:text-white text-xs sm:text-sm focus:outline-none focus:border-[var(--theme-primary)] transition-colors cursor-pointer"
+                  >
+                    <option value="">Select experience...</option>
+                    <option value="Fresher / Entry-Level">Fresher / Graduate</option>
+                    <option value="1 - 3 Years">1 - 3 Years</option>
+                    <option value="3 - 5 Years">3 - 5 Years</option>
+                    <option value="5 - 8 Years">5 - 8 Years</option>
+                    <option value="8+ Years (Senior / Leadership)">8+ Years (Senior)</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold uppercase tracking-wider text-gray-700 dark:text-gray-300 mb-1.5">
+                    Current Location
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="e.g. Noida / Delhi / Gujarat"
+                    value={formData.location}
+                    onChange={(e) => setFormData({ ...formData, location: e.target.value })}
+                    className="w-full px-4 py-3 rounded-2xl bg-slate-50 dark:bg-[#07131e] border border-slate-200 dark:border-slate-700 text-gray-900 dark:text-white text-xs sm:text-sm focus:outline-none focus:border-[var(--theme-primary)] transition-colors"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold uppercase tracking-wider text-gray-700 dark:text-gray-300 mb-1.5">
+                    LinkedIn / Portfolio URL
+                  </label>
+                  <input
+                    type="url"
+                    placeholder="https://linkedin.com/in/..."
+                    value={formData.linkedin}
+                    onChange={(e) => setFormData({ ...formData, linkedin: e.target.value })}
+                    className="w-full px-4 py-3 rounded-2xl bg-slate-50 dark:bg-[#07131e] border border-slate-200 dark:border-slate-700 text-gray-900 dark:text-white text-xs sm:text-sm focus:outline-none focus:border-[var(--theme-primary)] transition-colors"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold uppercase tracking-wider text-gray-700 dark:text-gray-300 mb-1.5">
+                  {formData.inquiryType === 'ask' 
+                    ? 'Your Question or Inquiry *' 
+                    : 'Cover Note, Key Achievements & Experience *'}
+                </label>
+                <textarea
+                  rows={4}
+                  required
+                  placeholder={
+                    formData.inquiryType === 'ask'
+                      ? 'Ask your question regarding working at Innovix, required skills, work culture, or future openings...'
+                      : 'Tell us about your background, relevant industrial experience, accomplishments, or paste a link to your resume...'
+                  }
+                  value={formData.message}
+                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                  className="w-full px-4 py-3 rounded-2xl bg-slate-50 dark:bg-[#07131e] border border-slate-200 dark:border-slate-700 text-gray-900 dark:text-white text-xs sm:text-sm focus:outline-none focus:border-[var(--theme-primary)] transition-colors resize-none"
+                />
+              </div>
+
+              <div className="pt-2">
+                <button
+                  type="submit"
+                  className="w-full py-4 rounded-2xl bg-[var(--theme-primary)] text-white font-extrabold text-sm sm:text-base flex items-center justify-center gap-2.5 shadow-lg hover:shadow-xl hover:opacity-95 transition-all cursor-pointer btn-3d"
+                >
+                  <Send className="w-5 h-5" />
+                  <span>
+                    {formData.inquiryType === 'ask'
+                      ? 'Submit Career Question / Inquiry'
+                      : 'Submit Candidate Application'}
+                  </span>
+                </button>
+              </div>
+            </form>
+
+            {/* Direct HR Support info */}
+            <div className="mt-8 pt-6 border-t border-slate-200 dark:border-slate-800 text-center text-xs text-gray-500 dark:text-gray-400">
+              <span>Have immediate questions? Reach our recruitment team directly at{' '}</span>
+              <a
+                href="mailto:megha.chopra@innovixtechnology.com"
+                className="font-bold text-[var(--theme-primary)] hover:underline inline-flex items-center gap-1"
+              >
+                <Mail className="w-3.5 h-3.5 inline" /> megha.chopra@innovixtechnology.com
+              </a>
+            </div>
+
           </div>
         </div>
       </section>
 
-      {/* 5. Direct Job Application Form */}
-      <section id="application-form" className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
-        <div className="bg-white dark:bg-[#091724] rounded-3xl p-7 sm:p-10 md:p-12 shadow-2xl border border-slate-200/90 dark:border-slate-800 card-3d relative overflow-hidden">
-          
-          <div className="text-center max-w-xl mx-auto mb-8 sm:mb-10">
-            <span className="text-xs font-bold uppercase tracking-widest text-[var(--theme-primary)]">
-              Candidate Portal
-            </span>
-            <h3 className="text-2xl sm:text-3xl font-extrabold text-[#072d4b] dark:text-white mt-1">
-              Submit Your Application
-            </h3>
-            <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-2">
-              Fill out the form below or email your resume directly to{' '}
-              <a href="mailto:megha.chopra@innovixtechnology.com" className="text-[var(--theme-primary)] font-bold hover:underline">
+      {/* 5. Direct Office Connectivity Cards */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="p-6 rounded-3xl bg-white dark:bg-[#091724] border border-slate-200/90 dark:border-slate-800 shadow-md card-3d flex items-center gap-4">
+            <div className="w-12 h-12 rounded-2xl bg-[var(--theme-primary)]/10 text-[var(--theme-primary)] flex items-center justify-center shrink-0">
+              <Mail className="w-6 h-6" />
+            </div>
+            <div>
+              <h4 className="text-xs font-bold uppercase tracking-wider text-gray-400">Email Talent Desk</h4>
+              <a href="mailto:megha.chopra@innovixtechnology.com" className="text-xs sm:text-sm font-bold text-gray-800 dark:text-white hover:text-[var(--theme-primary)] transition-colors">
                 megha.chopra@innovixtechnology.com
-              </a>.
-            </p>
+              </a>
+            </div>
           </div>
 
-          {submitted && (
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              className="mb-6 p-4 bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800 rounded-2xl flex items-center gap-3 text-emerald-800 dark:text-emerald-200 text-sm font-medium"
-            >
-              <CheckCircle2 className="w-5 h-5 text-emerald-600 dark:text-emerald-400 shrink-0" />
-              <span>Thank you! Your job application has been prepared and routed to <strong>megha.chopra@innovixtechnology.com</strong>. We will review your profile and reach out shortly.</span>
-            </motion.div>
-          )}
-
-          <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-gray-700 dark:text-gray-300 mb-1.5">
-                  Full Name *
-                </label>
-                <input
-                  type="text"
-                  required
-                  placeholder="e.g. Rahul Sharma"
-                  value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="w-full px-4 py-3 rounded-2xl bg-slate-50 dark:bg-[#07131e] border border-slate-200 dark:border-slate-700 text-gray-900 dark:text-white text-xs sm:text-sm focus:outline-none focus:border-[var(--theme-primary)] transition-colors"
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-gray-700 dark:text-gray-300 mb-1.5">
-                  Email Address *
-                </label>
-                <input
-                  type="email"
-                  required
-                  placeholder="rahul@example.com"
-                  value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className="w-full px-4 py-3 rounded-2xl bg-slate-50 dark:bg-[#07131e] border border-slate-200 dark:border-slate-700 text-gray-900 dark:text-white text-xs sm:text-sm focus:outline-none focus:border-[var(--theme-primary)] transition-colors"
-                />
-              </div>
+          <div className="p-6 rounded-3xl bg-white dark:bg-[#091724] border border-slate-200/90 dark:border-slate-800 shadow-md card-3d flex items-center gap-4">
+            <div className="w-12 h-12 rounded-2xl bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 flex items-center justify-center shrink-0">
+              <Phone className="w-6 h-6" />
             </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-gray-700 dark:text-gray-300 mb-1.5">
-                  Phone Number *
-                </label>
-                <input
-                  type="tel"
-                  required
-                  placeholder="+91 98765 43210"
-                  value={formData.phone}
-                  onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                  className="w-full px-4 py-3 rounded-2xl bg-slate-50 dark:bg-[#07131e] border border-slate-200 dark:border-slate-700 text-gray-900 dark:text-white text-xs sm:text-sm focus:outline-none focus:border-[var(--theme-primary)] transition-colors"
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-gray-700 dark:text-gray-300 mb-1.5">
-                  Target Position *
-                </label>
-                <select
-                  required
-                  value={formData.role}
-                  onChange={(e) => setFormData({ ...formData, role: e.target.value })}
-                  className="w-full px-4 py-3 rounded-2xl bg-slate-50 dark:bg-[#07131e] border border-slate-200 dark:border-slate-700 text-gray-900 dark:text-white text-xs sm:text-sm focus:outline-none focus:border-[var(--theme-primary)] transition-colors cursor-pointer"
-                >
-                  <option value="">Select a position...</option>
-                  {jobPositions.map((j) => (
-                    <option key={j.id} value={j.title}>
-                      {j.title}
-                    </option>
-                  ))}
-                  <option value="General Spontaneous Application">General / Other Role</option>
-                </select>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-gray-700 dark:text-gray-300 mb-1.5">
-                  Years of Relevant Experience
-                </label>
-                <input
-                  type="text"
-                  placeholder="e.g. 4 Years in Scrap Trading"
-                  value={formData.experience}
-                  onChange={(e) => setFormData({ ...formData, experience: e.target.value })}
-                  className="w-full px-4 py-3 rounded-2xl bg-slate-50 dark:bg-[#07131e] border border-slate-200 dark:border-slate-700 text-gray-900 dark:text-white text-xs sm:text-sm focus:outline-none focus:border-[var(--theme-primary)] transition-colors"
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-gray-700 dark:text-gray-300 mb-1.5">
-                  LinkedIn Profile / Portfolio URL
-                </label>
-                <input
-                  type="url"
-                  placeholder="https://linkedin.com/in/username"
-                  value={formData.linkedin}
-                  onChange={(e) => setFormData({ ...formData, linkedin: e.target.value })}
-                  className="w-full px-4 py-3 rounded-2xl bg-slate-50 dark:bg-[#07131e] border border-slate-200 dark:border-slate-700 text-gray-900 dark:text-white text-xs sm:text-sm focus:outline-none focus:border-[var(--theme-primary)] transition-colors"
-                />
-              </div>
-            </div>
-
             <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-gray-700 dark:text-gray-300 mb-1.5">
-                Cover Note / Key Strengths
-              </label>
-              <textarea
-                rows={4}
-                placeholder="Briefly tell us about your background, industrial achievements, and how you can contribute to Innovix Industries..."
-                value={formData.message}
-                onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                className="w-full px-4 py-3 rounded-2xl bg-slate-50 dark:bg-[#07131e] border border-slate-200 dark:border-slate-700 text-gray-900 dark:text-white text-xs sm:text-sm focus:outline-none focus:border-[var(--theme-primary)] transition-colors resize-none"
-              />
+              <h4 className="text-xs font-bold uppercase tracking-wider text-gray-400">Phone Support</h4>
+              <a href="tel:01204977413" className="text-xs sm:text-sm font-bold text-gray-800 dark:text-white hover:text-emerald-600 transition-colors">
+                01204977413
+              </a>
             </div>
+          </div>
 
-            <div className="pt-2">
-              <button
-                type="submit"
-                className="w-full py-4 rounded-2xl bg-[var(--theme-primary)] text-white font-extrabold text-sm sm:text-base flex items-center justify-center gap-2.5 shadow-lg hover:shadow-xl hover:opacity-95 transition-all cursor-pointer btn-3d"
-              >
-                <Send className="w-5 h-5" />
-                <span>Submit Candidate Application</span>
-              </button>
+          <div className="p-6 rounded-3xl bg-white dark:bg-[#091724] border border-slate-200/90 dark:border-slate-800 shadow-md card-3d flex items-center gap-4">
+            <div className="w-12 h-12 rounded-2xl bg-blue-50 dark:bg-blue-950/60 text-blue-600 flex items-center justify-center shrink-0">
+              <MapPin className="w-6 h-6" />
             </div>
-          </form>
+            <div>
+              <h4 className="text-xs font-bold uppercase tracking-wider text-gray-400">Corporate HQ</h4>
+              <p className="text-xs font-semibold text-gray-800 dark:text-white">
+                C-35, 1st Floor, Sector-6, Noida 201301
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 

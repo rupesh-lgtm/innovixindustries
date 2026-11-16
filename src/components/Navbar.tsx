@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronDown, Home, Menu, X, Sun, Moon, Palette } from 'lucide-react';
-import { useTheme } from '../context/ThemeContext';
-import { ThemeCustomizer } from './ThemeCustomizer';
+import { ChevronDown, Menu, X } from 'lucide-react';
 
 interface NavbarProps {
   onNavigate?: (section: string) => void;
@@ -10,12 +8,10 @@ interface NavbarProps {
   isTransparent?: boolean;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ onNavigate, onOpenOffice, isTransparent = false }) => {
+export const Navbar: React.FC<NavbarProps> = ({ onNavigate, isTransparent = false }) => {
   const [productsOpen, setProductsOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [themeCustomizerOpen, setThemeCustomizerOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const { theme, toggleTheme } = useTheme();
 
   React.useEffect(() => {
     if (!isTransparent) return;
@@ -146,7 +142,6 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate, onOpenOffice, isTran
               Our Team
             </motion.button>
 
-            {/* Careers link temporarily commented out
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -155,7 +150,6 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate, onOpenOffice, isTran
             >
               Careers
             </motion.button>
-            */}
 
             <motion.button
               whileHover={{ scale: 1.05 }}
@@ -167,9 +161,9 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate, onOpenOffice, isTran
             </motion.button>
           </nav>
 
-          {/* Right Action: 3D Theme Studio + Light/Dark Switcher + Home Icon + Mobile Hamburger */}
+          {/* Right Action: Mobile Hamburger (Theme Studio, Dark Theme, Home commented out as requested) */}
           <div className="flex items-center space-x-2 sm:space-x-2.5">
-            {/* 3D Theme Studio Palette Picker */}
+            {/* 3D Theme Studio Palette Picker - Commented Out
             <motion.button
               whileHover={{ scale: 1.1, rotate: -8 }}
               whileTap={{ scale: 0.92, rotate: 8 }}
@@ -180,8 +174,9 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate, onOpenOffice, isTran
             >
               <Palette className="w-5 h-5 text-[#b65862] dark:text-rose-400" />
             </motion.button>
+            */}
 
-            {/* 3D Theme Toggle (Light / Dark Mode) */}
+            {/* 3D Theme Toggle (Light / Dark Mode) - Commented Out
             <motion.button
               whileHover={{ scale: 1.1, rotate: 12 }}
               whileTap={{ scale: 0.92, rotate: -12 }}
@@ -214,8 +209,9 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate, onOpenOffice, isTran
                 )}
               </AnimatePresence>
             </motion.button>
+            */}
 
-            {/* Our Office Drawer Button */}
+            {/* Home / Our Office Button - Commented Out
             <motion.button
               whileHover={{ scale: 1.1, rotate: 8 }}
               whileTap={{ scale: 0.9 }}
@@ -231,6 +227,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate, onOpenOffice, isTran
             >
               <Home className="w-5 h-5 fill-current opacity-80" />
             </motion.button>
+            */}
 
             {/* Mobile Menu Button */}
             <motion.button
@@ -256,6 +253,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate, onOpenOffice, isTran
             className="md:hidden bg-white/98 dark:bg-[#07131e]/98 backdrop-blur-xl border-b border-gray-200 dark:border-slate-800 px-5 pt-3 pb-6 space-y-2 shadow-2xl overflow-hidden"
           >
             {/* Mobile Theme Switcher Bar */}
+            {/* Mobile Appearance & Palette Studio - Commented Out
             <div className="flex items-center justify-between p-3 rounded-xl bg-slate-100 dark:bg-slate-800/80 mb-2 border border-slate-200/80 dark:border-slate-700/60">
               <span className="text-sm font-semibold text-gray-700 dark:text-gray-300">
                 Appearance: {theme === 'dark' ? 'Dark' : 'Light'}
@@ -270,7 +268,6 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate, onOpenOffice, isTran
               </button>
             </div>
 
-            {/* Mobile Color Palette Studio Button */}
             <div className="flex items-center justify-between p-3 rounded-xl bg-slate-100 dark:bg-slate-800/80 mb-3 border border-slate-200/80 dark:border-slate-700/60">
               <span className="text-sm font-semibold text-gray-700 dark:text-gray-300">
                 Color Palette Studio
@@ -287,6 +284,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate, onOpenOffice, isTran
                 <span>Customize Colors</span>
               </button>
             </div>
+            */}
 
             <button
               onClick={() => handleNavClick('about')}
@@ -352,14 +350,12 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate, onOpenOffice, isTran
             >
               Our Team
             </button>
-            {/* Careers link temporarily commented out
             <button
               onClick={() => handleNavClick('careers')}
               className="block w-full text-left px-3 py-2.5 rounded-lg text-base font-semibold text-gray-700 dark:text-gray-200 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-[var(--theme-primary)] transition-colors"
             >
               Careers
             </button>
-            */}
             <button
               onClick={() => handleNavClick('contact')}
               className="block w-full text-left px-3 py-2.5 rounded-lg text-base font-semibold text-gray-700 dark:text-gray-200 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-[var(--theme-primary)] transition-colors"
@@ -370,11 +366,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate, onOpenOffice, isTran
         )}
       </AnimatePresence>
 
-      {/* Theme & Style Customizer Modal */}
-      <ThemeCustomizer
-        isOpen={themeCustomizerOpen}
-        onClose={() => setThemeCustomizerOpen(false)}
-      />
+      {/* Theme & Style Customizer Modal - Commented Out */}
     </motion.header>
   );
 };
