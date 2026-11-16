@@ -69,10 +69,10 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                 <img
                   src="/logo.png"
                   onError={(e) => {
-                    (e.currentTarget as HTMLImageElement).src = '/logo.svg';
+                    (e.currentTarget as HTMLImageElement).src = '/logo_original.png';
                   }}
                   alt="Innovix Industries"
-                  className="w-32 sm:w-36 h-auto max-h-12 object-contain filter dark:brightness-110"
+                  className="w-32 sm:w-36 md:w-40 h-auto max-h-12 object-contain filter dark:brightness-110"
                 />
               </div>
 

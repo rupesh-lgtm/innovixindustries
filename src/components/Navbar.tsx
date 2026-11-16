@@ -63,10 +63,10 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate, isTransparent = fals
               <img
                 src="/logo.png"
                 onError={(e) => {
-                  (e.currentTarget as HTMLImageElement).src = '/logo.svg';
+                  (e.currentTarget as HTMLImageElement).src = '/logo_original.png';
                 }}
                 alt="Innovix Industries Logo"
-                className="w-28 sm:w-32 md:w-40 h-auto max-h-12 sm:max-h-14 object-contain filter dark:brightness-110"
+                className="w-32 sm:w-36 md:w-44 h-auto max-h-12 sm:max-h-14 object-contain filter dark:brightness-110"
               />
             </motion.div>
           </a>
