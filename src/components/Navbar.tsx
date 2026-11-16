@@ -146,6 +146,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate, onOpenOffice, isTran
               Our Team
             </motion.button>
 
+            {/* Careers link temporarily commented out
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -154,6 +155,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate, onOpenOffice, isTran
             >
               Careers
             </motion.button>
+            */}
 
             <motion.button
               whileHover={{ scale: 1.05 }}
@@ -350,12 +352,14 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate, onOpenOffice, isTran
             >
               Our Team
             </button>
+            {/* Careers link temporarily commented out
             <button
               onClick={() => handleNavClick('careers')}
               className="block w-full text-left px-3 py-2.5 rounded-lg text-base font-semibold text-gray-700 dark:text-gray-200 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-[var(--theme-primary)] transition-colors"
             >
               Careers
             </button>
+            */}
             <button
               onClick={() => handleNavClick('contact')}
               className="block w-full text-left px-3 py-2.5 rounded-lg text-base font-semibold text-gray-700 dark:text-gray-200 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-[var(--theme-primary)] transition-colors"
