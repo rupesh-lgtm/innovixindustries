@@ -1,0 +1,17 @@
+User-agent: *
+Allow: /
+Allow: /about
+Allow: /products
+Allow: /products/*
+Allow: /team
+Allow: /contact
+Allow: /terms
+Allow: /privacy
+
+# Disallow internal assets or private directories
+Disallow: /api/
+Disallow: /draft/
+
+# Host and Sitemap
+Host: https://innovixindustries.com
+Sitemap: https://innovixindustries.com/sitemap.xml

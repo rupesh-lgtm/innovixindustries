@@ -1,0 +1,247 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --theme-primary: #b65862;
+  --theme-primary-hover: #a24851;
+  --theme-primary-light: #fff1f2;
+  --theme-primary-text: #b65862;
+  --theme-primary-glow: rgba(182, 88, 98, 0.35);
+  --theme-gradient-from: #b65862;
+  --theme-gradient-to: #c76570;
+}
+
+[data-color-theme="crimson"] {
+  --theme-primary: #b65862;
+  --theme-primary-hover: #a24851;
+  --theme-primary-light: #fff1f2;
+  --theme-primary-text: #b65862;
+  --theme-primary-glow: rgba(182, 88, 98, 0.35);
+  --theme-gradient-from: #b65862;
+  --theme-gradient-to: #c76570;
+}
+
+[data-color-theme="copper"] {
+  --theme-primary: #ea580c;
+  --theme-primary-hover: #c2410c;
+  --theme-primary-light: #fff7ed;
+  --theme-primary-text: #ea580c;
+  --theme-primary-glow: rgba(234, 88, 12, 0.35);
+  --theme-gradient-from: #ea580c;
+  --theme-gradient-to: #f97316;
+}
+
+[data-color-theme="emerald"] {
+  --theme-primary: #059669;
+  --theme-primary-hover: #047857;
+  --theme-primary-light: #ecfdf5;
+  --theme-primary-text: #059669;
+  --theme-primary-glow: rgba(5, 150, 105, 0.35);
+  --theme-gradient-from: #059669;
+  --theme-gradient-to: #10b981;
+}
+
+[data-color-theme="cyan"] {
+  --theme-primary: #0284c7;
+  --theme-primary-hover: #0369a1;
+  --theme-primary-light: #f0f9ff;
+  --theme-primary-text: #0284c7;
+  --theme-primary-glow: rgba(2, 132, 199, 0.35);
+  --theme-gradient-from: #0284c7;
+  --theme-gradient-to: #38bdf8;
+}
+
+[data-color-theme="gold"] {
+  --theme-primary: #d97706;
+  --theme-primary-hover: #b45309;
+  --theme-primary-light: #fefce8;
+  --theme-primary-text: #d97706;
+  --theme-primary-glow: rgba(217, 119, 6, 0.35);
+  --theme-gradient-from: #d97706;
+  --theme-gradient-to: #f59e0b;
+}
+
+/* Dark mode text variants for maximum contrast & brilliance */
+.dark[data-color-theme="crimson"] {
+  --theme-primary-text: #fb7185;
+}
+.dark[data-color-theme="copper"] {
+  --theme-primary-text: #fb923c;
+}
+.dark[data-color-theme="emerald"] {
+  --theme-primary-text: #34d399;
+}
+.dark[data-color-theme="cyan"] {
+  --theme-primary-text: #38bdf8;
+}
+.dark[data-color-theme="gold"] {
+  --theme-primary-text: #fbbf24;
+}
+
+/* Seamless dynamic mapping of brand accent classes to active theme */
+[data-color-theme] .bg-\[\#b65862\],
+[data-color-theme] .bg-\[\#bd606a\],
+[data-color-theme] .bg-\[\#b95d66\],
+[data-color-theme] .dark .dark\:bg-rose-600 {
+  background-color: var(--theme-primary) !important;
+}
+
+[data-color-theme] .hover\:bg-\[\#a24851\]:hover,
+[data-color-theme] .hover\:bg-\[\#a94f58\]:hover,
+[data-color-theme] .hover\:bg-\[\#b65862\]:hover,
+[data-color-theme] .dark .dark\:hover\:bg-rose-600:hover,
+[data-color-theme] .dark .dark\:hover\:bg-\[\#b65862\]:hover {
+  background-color: var(--theme-primary-hover) !important;
+}
+
+[data-color-theme] .text-\[\#b65862\],
+[data-color-theme] .text-\[\#bd606a\],
+[data-color-theme] .dark .dark\:text-rose-400,
+[data-color-theme] .dark .dark\:text-rose-300 {
+  color: var(--theme-primary-text) !important;
+}
+
+[data-color-theme] .hover\:text-\[\#b65862\]:hover,
+[data-color-theme] .dark .dark\:hover\:text-rose-400:hover,
+[data-color-theme] .group:hover .group-hover\:text-\[\#b65862\],
+[data-color-theme] .dark .group:hover .dark\:group-hover\:text-rose-400 {
+  color: var(--theme-primary-text) !important;
+}
+
+[data-color-theme] .border-\[\#b65862\],
+[data-color-theme] .border-\[\#bd606a\],
+[data-color-theme] .dark .dark\:border-rose-900\/40,
+[data-color-theme] .dark .dark\:border-rose-400\/20,
+[data-color-theme] .dark .dark\:border-rose-400\/25 {
+  border-color: var(--theme-primary) !important;
+}
+
+[data-color-theme] .hover\:border-\[\#b65862\]\/40:hover {
+  border-color: var(--theme-primary) !important;
+}
+
+[data-color-theme] .after\:bg-\[\#b65862\]::after,
+[data-color-theme] .dark .dark\:after\:bg-rose-400::after {
+  background-color: var(--theme-primary) !important;
+}
+
+[data-color-theme] .from-\[\#b65862\],
+[data-color-theme] .from-\[\#bd606a\] {
+  --tw-gradient-from: var(--theme-gradient-from) var(--tw-gradient-from-position) !important;
+  --tw-gradient-to: rgb(255 255 255 / 0) var(--tw-gradient-to-position) !important;
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to) !important;
+}
+
+[data-color-theme] .to-\[\#c76570\],
+[data-color-theme] .to-\[\#b65862\] {
+  --tw-gradient-to: var(--theme-gradient-to) var(--tw-gradient-to-position) !important;
+}
+
+[data-color-theme] .ring-\[\#b65862\]\/30 {
+  --tw-ring-color: var(--theme-primary-glow) !important;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply antialiased text-gray-800 dark:text-gray-100 bg-white dark:bg-[#07131e] font-sans overflow-x-hidden transition-colors duration-300;
+  }
+}
+
+/* 3D Depth, Perspective & Card Effects */
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.perspective-2000 {
+  perspective: 2000px;
+}
+
+.transform-style-3d {
+  transform-style: preserve-3d;
+}
+
+.card-3d {
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease, border-color 0.4s ease;
+  transform: perspective(1000px) rotateX(0deg) rotateY(0deg) translateZ(0);
+}
+
+.card-3d:hover {
+  transform: perspective(1000px) translateY(-8px) scale(1.02);
+}
+
+.btn-3d {
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+
+.btn-3d:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.15), 0 4px 6px -2px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+
+.btn-3d:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.1), inset 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Custom subtle glow & shimmer animations */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes pulse-subtle {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.85;
+    transform: scale(1.04);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+.animate-pulse-subtle {
+  animation: pulse-subtle 3s ease-in-out infinite;
+}
+
+.shimmer-effect {
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0) 100%);
+  background-size: 200% 100%;
+  animation: shimmer 3s infinite;
+}
+
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 12s linear infinite;
+}
